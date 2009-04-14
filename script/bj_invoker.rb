@@ -1,6 +1,7 @@
 @routing = Workling::Routing::ClassAndMethodRouting.new
-unnormalized = REXML::Text::unnormalize(STDIN.read)
-message, command, args = *unnormalized.match(/(^[^ ]*) (.*)/)
+# unnormalized = REXML::Text::unnormalize(STDIN.read)
+unnormalized = STDIN.read.gsub(/\r\n?/, "\n")
+message, command, args = *unnormalized.match(/(^[^ ]*) (.*)/m)
 options = Hash.from_xml(args)["hash"]
 
 if workling = @routing[command]
